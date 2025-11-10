@@ -2,7 +2,7 @@
 
 Cryptocurrency tracking application with 30-day candlestick charts, server-side caching, and rate limiting.
 
-**Live Demo:** []
+**Live Demo:** [https://market-indicators.vercel.app](https://market-indicators.vercel.app)
 
 ## Tech Stack
 
@@ -93,9 +93,11 @@ With 120s caching, actual API usage stays well under daily limits (~360 calls/ho
 ```
 app/
 ├── api/
-│   └── indicators/
-│       ├── route.ts          # GET list of top 15 cryptos
-│       └── [id]/route.ts     # GET 30-day OHLC data
+│   ├── indicators/
+│   │   ├── route.ts          # GET list of top 15 cryptos
+│   │   └── [id]/route.ts     # GET 30-day OHLC data
+│   └── search/
+│       └── route.ts          # GET search by symbol/name
 ├── components/
 │   ├── CandlestickChart.tsx  # Chart rendering
 │   ├── IndicatorCard.tsx     # Crypto card
@@ -110,6 +112,18 @@ lib/
 ```
 
 ## API Endpoints
+
+**GET /api/search?q={query}**
+
+Search for cryptocurrency by name or symbol.
+
+```json
+{
+  "id": "bitcoin",
+  "name": "Bitcoin",
+  "symbol": "BTC"
+}
+```
 
 **GET /api/indicators**
 
