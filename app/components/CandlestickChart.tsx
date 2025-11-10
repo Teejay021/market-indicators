@@ -15,6 +15,16 @@ interface CandlestickChartProps {
   data: CandlestickData[];
 }
 
+// Type guard for chart data
+function isValidData(data: any): boolean {
+  return Array.isArray(data) && data.length > 0 && 
+         data.every(item => item && typeof item.time === 'number' && 
+                    typeof item.open === 'number' && 
+                    typeof item.high === 'number' && 
+                    typeof item.low === 'number' && 
+                    typeof item.close === 'number');
+}
+
 export default function CandlestickChart({ data }: CandlestickChartProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +61,7 @@ export default function CandlestickChart({ data }: CandlestickChartProps) {
       wickDownColor: '#ef4444',
     });
 
-    candlestickSeries.setData(data);
+    candlestickSeries.setData(data as any);
 
     // Fit content to display all data
     chart.timeScale().fitContent();
